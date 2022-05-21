@@ -6,7 +6,7 @@ const { Client } = require('pg')
 
 
 const app = express()
-const port = 3001
+const port = 5432
 
 app.use(cors())
 app.use(express.json())
