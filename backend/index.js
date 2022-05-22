@@ -1,21 +1,15 @@
 
 const express = require('express')
-var cors = require('cors')
+const cors = require('cors')
 const { Client } = require('pg')
 
 
 
 const app = express()
-const port = 5432
+const port = process.env.port;
 
 app.use(cors())
 app.use(express.json())
-// app.use(express.urlencoded({extended: false}))
-
-app.get('/data', (req, res) => {
-  res.send('Hello World!')
-  
-})
 
 app.post('/data', (req, res) => {
     const userData = req.body
@@ -36,7 +30,6 @@ const client = new Client({
   user: 'ykapccheefqopy',
   password: '14717759fbaf2535c674de8df4ffe62bcc85a5387602052c95ba23d3a3998d6c',
   database: 'd5b20rocsjrval',
-  port:5432,
   ssl:{
       rejectUnauthorized: false,
   },
@@ -46,7 +39,7 @@ const client = new Client({
 
 await client.connect();
 
-const queryToInsert = "INSERT INTO registro_pe (nombre, contrasena)VALUES ('"+name+"','"+password+"')"
+const queryToInsert = "INSERT INTO registro (nombre, password)VALUES ('"+name+"','"+password+"')"
 
 const res = await client.query(queryToInsert)
 const resultado = res.rows;
